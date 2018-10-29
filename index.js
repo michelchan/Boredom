@@ -27,7 +27,7 @@ const STOP_MESSAGE = 'Goodbye!';
 
 function getActivity(callback) {
     var options = {
-        host: 'boredapi.com',
+        host: 'www.boredapi.com',
         path: '/api/activity',
         method: 'GET',
     };
@@ -93,5 +93,3 @@ exports.handler = function (event, context, callback) {
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
-
-
