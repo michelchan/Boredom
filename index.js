@@ -10,7 +10,7 @@
 
 'use strict';
 const Alexa = require('alexa-sdk');
-var http = require('http');
+var https = require('https');
 
 //=========================================================================================================================================
 //TODO: The items below this comment need your attention.
@@ -32,7 +32,7 @@ function getActivity(callback) {
         method: 'GET',
     };
 
-    var req = http.request(options, res => {
+    var req = https.request(options, res => {
         res.setEncoding('utf8');
         var responseString = "";
         
@@ -43,8 +43,8 @@ function getActivity(callback) {
         
         //return the data when streaming is complete
         res.on('end', () => {
-            console.log(responseString);
-            callback(responseString);
+            const responseJSON = JSON.parse(responseString);
+            callback(responseJSON.activity);
         });
 
     });
@@ -93,3 +93,5 @@ exports.handler = function (event, context, callback) {
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
+
+// getActivity( (res) => { console.log(res)} );
